@@ -64,7 +64,7 @@ http.createServer(function(req,res){
 	})
 	req.on('end',function(err){
 		if(err) throw err;
-		let json = queryString.parse(str);  //将前台传过来的字符串变为对象
+		let json = queryString.parse(str); 
 		fs.readFile('./content.txt','utf8',function(err,data){
 			if(err) throw err;
 		 	let json1 = JSON.parse(data);
@@ -72,7 +72,7 @@ http.createServer(function(req,res){
 				res.write(data);
 				res.end();
 			}else{
-				json1[json.user] = json.pass;  //json对象赋值{"xiebin":"123456"}
+				json1[json.user] = json.pass; 
 				fs.writeFile('./content.txt',JSON.stringify(json1),function(err){
 						if(err) throw err;
 						res.write(data);
