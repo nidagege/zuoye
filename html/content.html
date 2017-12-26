@@ -60,15 +60,17 @@
 		async:true,
 		success:function(data){
 			console.log(data)
-		let json1 = JSON.parse(data);
-		var str=''
-			for(i in json1){
-				str+='<h1>文章名'+i+'</h1><p>内容'+json1[i]+'</p>'
+// 		let json1 = JSON.parse(data);
+// 		var str=''
+// 			for(i in json1){
+// 				str+='<h1>文章名'+i+'</h1><p>内容'+json1[i]+'</p>'
 			
 
-			}
-			 te.innerHTML=str;
+// 			}
+// 			 te.innerHTML=str;
 			// tuo.innerHTML=str.pass;
+			 te.innerHTML="文章名："+user.value;
+			tuo.innerHTML="内容："+pass.value;
 		},
 		error:function(){
 
