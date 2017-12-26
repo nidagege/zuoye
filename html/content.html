@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		 padding: 0;
+    margin: 0;
+    border: 0;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    list-style:none;
+
+	}
+	div{
+		overflow: auto;
+	}
+	input{
+		height: 40px;
+		border: 1px solid red;
+		float: left;
+		margin:0 30px;
+	}
+	button{
+		width: 100px;
+		height: 40px;
+		float: left;
+	}
+		</style>
+</head>
+<body>
+<div>
+	<input type="text" id="user">
+<input type="text" id="pass">
+<button id="btn">提交</button>
+<div id="te"></div>
+<div id="tuo"></div>
+</div>
+
+<script type="text/javascript">
+// function row(data) {
+//         var str ='';
+//         for(var i=0;i<data.length;i++){
+//             str +=`<h1>data[i].user</h1>
+//             <p>data[i].pass</p>`
+//         }
+//         var arr=JSON.parse(str)
+//         tuo.innerHTML(str)
+//     }
+	btn.onclick = function(){
+			ajax({
+		url:'http://localhost:3000',
+		type:'post',
+		data:{
+			user:user.value,
+			pass:pass.value
+		},
+		async:true,
+		success:function(data){
+			console.log(data)
+		let json1 = JSON.parse(data);
+		var str=''
+			for(i in json1){
+				str+='<h1>标题'+i+'</h1><p>内容'+json1[i]+'</p>'
+			
+
+			}
+			 te.innerHTML=str;
+			// tuo.innerHTML=str.pass;
+		},
+		error:function(){
+
+		}
+	})
+	}
+
+	
+	
+	
+function ajax (option){
+	var xhr = new XMLHttpRequest();
+
+	var arr= []
+	for(var i in option.data){
+		arr.push(i+'='+option.data[i])
+	}
+	 var str = '';
+	 str=arr.join('&')
+
+	
+   if(option.type == 'get'){
+	xhr.open('get',option.url+'?'+str,true);
+	xhr.send();
+    } else 
+    if(option.type == 'post'){
+     xhr.open('post',option.url,true);
+     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+     xhr.send(str);
+    }
+
+
+
+	xhr.onreadystatechange = function (){
+		if(xhr.readyState == 4){
+			if(xhr.status >=200 && xhr.status < 300 || xhr.status == 304){
+				option.success(xhr.responseText)
+				//console.log(xhr.responseText)
+			}else{
+				console.log('服务器错误')
+			}
+
+
+					}
+	}
+}</script>
+</body>
+</html>
